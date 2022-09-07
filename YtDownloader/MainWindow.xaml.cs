@@ -77,5 +77,23 @@ namespace YtDownloader
 
             SaveVideoToDisk();
         }
+
+        private void CloseBut_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void MinBut_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }
+
+        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                this.DragMove();
+            }
+        }
     }
 }
