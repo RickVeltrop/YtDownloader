@@ -1,0 +1,26 @@
+﻿<Window x:Class="YtDownloader.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:YtDownloader"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="400" Width="400" MinWidth="250">
+    <Grid OpacityMask="Black">
+        <Border Margin="25,50,25,0" BorderBrush="Black" Height="25" VerticalAlignment="Top" BorderThickness="1,1,1,1">
+            <Grid VerticalAlignment="Center">
+                <TextBlock TextWrapping="NoWrap" Text=" Link: " FontSize="14" FontWeight="Bold" MinWidth="35" HorizontalAlignment="Left" Width="35" VerticalAlignment="Center"/>
+                <TextBox KeyDown="TextBox_KeyDown" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" TextWrapping="NoWrap" Text="Enter link here..." FontSize="14" FontStyle="Italic" Margin="40,0,0,0" MinWidth="65" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Cursor="IBeam" InputScope="Url"/>
+            </Grid>
+        </Border>
+        <Border Margin="50,0,50,25" VerticalAlignment="Bottom" Height="35">
+            <Button>
+                <Grid Width="500" HorizontalAlignment="Center">
+                    <TextBlock Text="↓" Margin="200,0,0,0" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Left" Width="12"/>
+                    <TextBlock Text="Download" FontSize="14" VerticalAlignment="Center"  HorizontalAlignment="Center"/>
+                    <TextBlock Text="↓" Margin="290,0,0,0" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Left" Width="12"/>
+                </Grid>
+            </Button>
+        </Border>
+    </Grid>
+</Window>
