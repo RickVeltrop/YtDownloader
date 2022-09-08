@@ -78,12 +78,12 @@ namespace YtDownloader
             SaveVideoToDisk();
         }
 
-        private void CloseBut_Click(object sender, RoutedEventArgs e)
+        private void CloseBut_Click(object sender, MouseButtonEventArgs e)
         {
             this.Close();
         }
 
-        private void MinBut_Click(object sender, RoutedEventArgs e)
+        private void MinBut_Click(object sender, MouseButtonEventArgs e)
         {
             this.WindowState = WindowState.Minimized;
         }
@@ -94,6 +94,31 @@ namespace YtDownloader
             {
                 this.DragMove();
             }
+        }
+
+        private void CloseBut_MouseEnter(object sender, MouseEventArgs e)
+        {
+            Border But = (Border)sender;
+
+            RadialGradientBrush RadGrBr = new RadialGradientBrush();
+            RadGrBr.GradientOrigin = new Point(0.5, 0.5);
+            RadGrBr.Center = new Point(0.5, 0.5);
+            RadGrBr.RadiusX = 0.5;
+            RadGrBr.RadiusY = 0.5;
+            RadGrBr.GradientStops.Add(new GradientStop((Color)ColorConverter.ConvertFromString("#FFFA0000"), 0.0));
+            RadGrBr.GradientStops.Add(new GradientStop((Color)ColorConverter.ConvertFromString("#FFC80000"), 1.0));
+            RadGrBr.Freeze();
+
+            But.Background = RadGrBr;
+        }
+
+        private void CloseBut_MouseLeave(object sender, MouseEventArgs e)
+        {
+            Border But = (Border)sender;
+
+            SolidColorBrush SolColBr = (SolidColorBrush)new BrushConverter().ConvertFromString("#FF8C8C8C");
+
+            But.Background = SolColBr;
         }
     }
 }
