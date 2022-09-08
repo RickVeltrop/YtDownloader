@@ -16,12 +16,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using VideoLibrary;
+using System.Windows.Media.Animation;
 
 namespace YtDownloader
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         // https://www.youtube.com/watch?v=dQw4w9WgXcQ
@@ -50,6 +48,7 @@ namespace YtDownloader
             InitializeComponent();
         }
 
+        // Link TextBox placeholder
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             TextBox TxtBx = (TextBox)sender;
@@ -58,7 +57,6 @@ namespace YtDownloader
                 TxtBx.Text = "";
             }
         }
-
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
             TextBox TxtBx = (TextBox)sender;
@@ -68,26 +66,17 @@ namespace YtDownloader
             }
         }
 
-        private void TextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            TextBox TxtBx = (TextBox)sender;
-            if (e.Key != Key.Enter) { return; }
-
-            uri = TxtBx.Text;
-
-            SaveVideoToDisk();
-        }
-
+        // Menu Buttons
         private void CloseBut_Click(object sender, MouseButtonEventArgs e)
         {
             this.Close();
         }
-
         private void MinBut_Click(object sender, MouseButtonEventArgs e)
         {
             this.WindowState = WindowState.Minimized;
         }
 
+        // Window dragging
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
@@ -96,29 +85,52 @@ namespace YtDownloader
             }
         }
 
+        // Minimalize Button styles
+        private void MinBut_MouseEnter(object sender, MouseEventArgs e)
+        {
+            Border But = (Border)sender;
+            TextBlock TxtBox = (TextBlock)But.Child;
+
+            ColorAnimation BgAnim = new ColorAnimation((Color)ColorConverter.ConvertFromString("#FF3B3B3B"), new Duration(TimeSpan.FromSeconds(0.2)));
+            ColorAnimation FgAnim = new ColorAnimation((Color)ColorConverter.ConvertFromString("#EEE"), new Duration(TimeSpan.FromSeconds(0.2)));
+
+            But.Background.BeginAnimation(SolidColorBrush.ColorProperty, BgAnim);
+            TxtBox.Foreground.BeginAnimation(SolidColorBrush.ColorProperty, FgAnim);
+        }
+        private void MinBut_MouseLeave(object sender, MouseEventArgs e)
+        {
+            Border But = (Border)sender;
+            TextBlock TxtBox = (TextBlock)But.Child;
+
+            ColorAnimation BgAnim = new ColorAnimation((Color)ColorConverter.ConvertFromString("#FF2B2B2B"), new Duration(TimeSpan.FromSeconds(0.2)));
+            ColorAnimation FgAnim = new ColorAnimation((Color)ColorConverter.ConvertFromString("#999"), new Duration(TimeSpan.FromSeconds(0.2)));
+
+            But.Background.BeginAnimation(SolidColorBrush.ColorProperty, BgAnim);
+            TxtBox.Foreground.BeginAnimation(SolidColorBrush.ColorProperty, FgAnim);
+        }
+
+        // Close Button styles
         private void CloseBut_MouseEnter(object sender, MouseEventArgs e)
         {
             Border But = (Border)sender;
+            TextBlock TxtBox = (TextBlock)But.Child;
 
-            RadialGradientBrush RadGrBr = new RadialGradientBrush();
-            RadGrBr.GradientOrigin = new Point(0.5, 0.5);
-            RadGrBr.Center = new Point(0.5, 0.5);
-            RadGrBr.RadiusX = 0.5;
-            RadGrBr.RadiusY = 0.5;
-            RadGrBr.GradientStops.Add(new GradientStop((Color)ColorConverter.ConvertFromString("#FFFA0000"), 0.0));
-            RadGrBr.GradientStops.Add(new GradientStop((Color)ColorConverter.ConvertFromString("#FFC80000"), 1.0));
-            RadGrBr.Freeze();
+            ColorAnimation BgAnim = new ColorAnimation((Color)ColorConverter.ConvertFromString("#AA0000"), new Duration(TimeSpan.FromSeconds(0.2)));
+            ColorAnimation FgAnim = new ColorAnimation((Color)ColorConverter.ConvertFromString("#EEE"), new Duration(TimeSpan.FromSeconds(0.2)));
 
-            But.Background = RadGrBr;
+            But.Background.BeginAnimation(SolidColorBrush.ColorProperty, BgAnim);
+            TxtBox.Foreground.BeginAnimation(SolidColorBrush.ColorProperty, FgAnim);
         }
-
         private void CloseBut_MouseLeave(object sender, MouseEventArgs e)
         {
             Border But = (Border)sender;
+            TextBlock TxtBox = (TextBlock)But.Child;
 
-            SolidColorBrush SolColBr = (SolidColorBrush)new BrushConverter().ConvertFromString("#FF8C8C8C");
+            ColorAnimation BgAnim = new ColorAnimation((Color)ColorConverter.ConvertFromString("#FF2B2B2B"), new Duration(TimeSpan.FromSeconds(0.2)));
+            ColorAnimation FgAnim = new ColorAnimation((Color)ColorConverter.ConvertFromString("#999"), new Duration(TimeSpan.FromSeconds(0.2)));
 
-            But.Background = SolColBr;
+            But.Background.BeginAnimation(SolidColorBrush.ColorProperty, BgAnim);
+            TxtBox.Foreground.BeginAnimation(SolidColorBrush.ColorProperty, FgAnim);
         }
     }
 }
