@@ -17,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using VideoLibrary;
 using System.Windows.Media.Animation;
+using Microsoft.Win32;
 
 namespace YtDownloader
 {
@@ -34,8 +35,16 @@ namespace YtDownloader
 
         private void DownloadBut_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            //Border ButBorder = (Border)sender;
-            Console.WriteLine(LinkInputField.Text);
+            string InputLink = LinkInputField.Text;
+            if (!InputLink.Contains("youtube.com")) { return; }
+
+            YouTube yt = YouTube.Default;
+            Video VidInfo = yt.GetVideo(InputLink);
+
+            bool? DownConf = new MsgDialog().ShowDialog();
+            if (DownConf is false or null) { return; }
+
+            File.WriteAllBytes(DefaultPath + VidInfo.FullName, VidInfo.GetBytes());
         }
 
         // Link TextBox styles
@@ -165,7 +174,8 @@ namespace YtDownloader
             {
                 DropDown.Visibility = Visibility.Visible;
                 ((TextBlock)SetContain.Child).Text = "⇡ Advanced ⇡";
-            } else if (DropDown.Visibility == Visibility.Visible)
+            }
+            else if (DropDown.Visibility == Visibility.Visible)
             {
                 DropDown.Visibility = Visibility.Collapsed;
                 ((TextBlock)SetContain.Child).Text = "⇣ Advanced ⇣";

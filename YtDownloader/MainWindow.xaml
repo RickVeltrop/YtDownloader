@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YtDownloader"
         mc:Ignorable="d"
-        Title="MainWindow" Height="400" Width="600" MinHeight="300" MinWidth="400" WindowStyle="None" ResizeMode="CanResize" AllowsTransparency="True" Background="{x:Null}">
+        Title="MainWindow" Height="400" Width="600" MinHeight="300" MinWidth="400" WindowStyle="None" ResizeMode="CanResizeWithGrip" AllowsTransparency="True" Background="{x:Null}">
 
     <Window.Resources>
         <Style TargetType="TextBox">
@@ -41,7 +41,7 @@
             <Border x:Name="LinkInput" Margin="25,50,25,0" BorderBrush="#FF333333" Height="35" VerticalAlignment="Top" BorderThickness="1" CornerRadius="5">
                 <Grid VerticalAlignment="Center">
                     <TextBlock TextWrapping="NoWrap" Text=" Link: " FontSize="16" FontWeight="Bold" MinWidth="35" HorizontalAlignment="Left" Width="45" VerticalAlignment="Center" Foreground="#FF999999"/>
-                    <TextBox x:Name="LinkInputField" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" TextWrapping="NoWrap" Text="Enter link here..." FontSize="16" FontStyle="Italic" Margin="45,0,0,0" MinWidth="65" Background="{x:Null}" BorderBrush="{x:Null}" Cursor="IBeam" InputScope="Url" Foreground="#FF999999" IsTabStop="False" VerticalAlignment="Center"/>
+                    <TextBox x:Name="LinkInputField" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" TextWrapping="NoWrap" Text="Enter link here..." FontSize="16" FontStyle="Italic" Margin="45,0,0,0" MinWidth="65" Background="{x:Null}" BorderBrush="{x:Null}" Cursor="IBeam" InputScope="Default" Foreground="#FF999999" IsTabStop="False" VerticalAlignment="Center"/>
                 </Grid>
             </Border>
             <Border Margin="100,100,100,120">
@@ -56,8 +56,8 @@
                     </Border>
                 </Grid>
             </Border>
-            <Border x:Name="DownloadBut"  Cursor="Hand" Margin="75,0,75,25" VerticalAlignment="Bottom" Height="40" CornerRadius="10" Background="#FF2B2B2B" BorderBrush="#FF585858" BorderThickness="1" MaxWidth="500" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave">
-                <Grid MouseUp="DownloadBut_MouseUp">
+            <Border MouseDown="DownloadBut_MouseUp" x:Name="DownloadBut"  Cursor="Hand" Margin="75,0,75,25" VerticalAlignment="Bottom" Height="40" CornerRadius="10" Background="#FF2B2B2B" BorderBrush="#FF585858" BorderThickness="1" MaxWidth="500" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave">
+                <Grid>
                     <TextBlock Text="↓" FontSize="20" Foreground="#FF999999" HorizontalAlignment="Center" Margin="-100,0,0,0" VerticalAlignment="Center"/>
                     <TextBlock Text="Download" FontSize="14" Foreground="#FF999999" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     <TextBlock Text="↓" Margin="100,0,0,0" FontSize="20" Foreground="#FF999999" HorizontalAlignment="Center" VerticalAlignment="Center"/>

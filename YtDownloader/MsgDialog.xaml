@@ -1,0 +1,43 @@
+﻿<Window x:Name="DialogMsg" x:Class="YtDownloader.MsgDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:YtDownloader"
+        mc:Ignorable="d"
+        Title="MsgDialog" Height="400" Width="600" MinHeight="300" MinWidth="400" WindowStyle="None" ResizeMode="CanResizeWithGrip" AllowsTransparency="True" Background="{x:Null}">
+
+    <Window.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="true">
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Border BorderThickness="1" BorderBrush="#FF343434" >
+        <Grid Background="#FF0C0C0C">
+            <Border Height="30" VerticalAlignment="Top">
+                <Grid Background="#FF2B2B2B" Height="30" MouseDown="Grid_MouseDown">
+                    <TextBlock Text="{Binding Title, ElementName=DialogMsg}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" FontWeight="Bold" Foreground="#FF999999"/>
+                    <Border Cursor="Hand" x:Name="MinBut" Width="50" Margin="9,0,50,0" Background="#FF2B2B2B" HorizontalAlignment="Right" MouseDown="MinBut_Click" MouseEnter="MinBut_MouseEnter" MouseLeave="MinBut_MouseLeave">
+                        <TextBlock Text="─" TextAlignment="Center" FontSize="15" VerticalAlignment="Center" Foreground="#FF999999"/>
+                    </Border>
+                    <Border Cursor="Hand" x:Name="CloseBut" Width="50" Background="#FF2B2B2B" HorizontalAlignment="Right" MouseDown="CloseBut_Click" MouseEnter="CloseBut_MouseEnter" MouseLeave="CloseBut_MouseLeave">
+                        <TextBlock Text="✕" TextAlignment="Center" FontSize="15" VerticalAlignment="Center" Foreground="#FF999999"/>
+                    </Border>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</Window>
