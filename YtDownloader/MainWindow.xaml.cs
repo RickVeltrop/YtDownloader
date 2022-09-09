@@ -25,30 +25,20 @@ namespace YtDownloader
         // https://www.youtube.com/watch?v=dQw4w9WgXcQ
 
         string PlaceholderText = "Enter link here...";
-
         string DefaultPath = @"D:\TEST\";
-        string uri = "";
-
-        // Returns file name for saved files
-        private string ConstructFileName(YouTubeVideo video)
-        {
-            return $"{video.Info.Title}" + video.FileExtension;
-        }
-
-        // Download and saves a youtube video
-        private void SaveVideoToDisk()
-        {
-            YouTube yt = YouTube.Default;
-            YouTubeVideo video = yt.GetVideo(uri);
-            File.WriteAllBytes(DefaultPath + ConstructFileName(video), video.GetBytes());
-        }
 
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        // Link TextBox placeholder
+        private void DownloadBut_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            //Border ButBorder = (Border)sender;
+            Console.WriteLine(LinkInputField.Text);
+        }
+
+        // Link TextBox styles
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             TextBox TxtBx = (TextBox)sender;
@@ -56,6 +46,9 @@ namespace YtDownloader
             {
                 TxtBx.Text = "";
             }
+
+            ColorAnimation BrdAnim = new ColorAnimation((Color)ColorConverter.ConvertFromString("#EEE"), new Duration(TimeSpan.FromSeconds(0.2)));
+            LinkInput.BorderBrush.BeginAnimation(SolidColorBrush.ColorProperty, BrdAnim);
         }
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
@@ -64,6 +57,9 @@ namespace YtDownloader
             {
                 TxtBx.Text = PlaceholderText;
             }
+
+            ColorAnimation BrdAnim = new ColorAnimation((Color)ColorConverter.ConvertFromString("#FF333333"), new Duration(TimeSpan.FromSeconds(0.2)));
+            LinkInput.BorderBrush.BeginAnimation(SolidColorBrush.ColorProperty, BrdAnim);
         }
 
         // Menu Buttons
@@ -127,10 +123,53 @@ namespace YtDownloader
             TextBlock TxtBox = (TextBlock)But.Child;
 
             ColorAnimation BgAnim = new ColorAnimation((Color)ColorConverter.ConvertFromString("#FF2B2B2B"), new Duration(TimeSpan.FromSeconds(0.2)));
-            ColorAnimation FgAnim = new ColorAnimation((Color)ColorConverter.ConvertFromString("#999"), new Duration(TimeSpan.FromSeconds(0.2)));
+            ColorAnimation FgAnim = new ColorAnimation((Color)ColorConverter.ConvertFromString("#999999"), new Duration(TimeSpan.FromSeconds(0.2)));
 
             But.Background.BeginAnimation(SolidColorBrush.ColorProperty, BgAnim);
             TxtBox.Foreground.BeginAnimation(SolidColorBrush.ColorProperty, FgAnim);
+        }
+
+        // Download button styles
+        private void Border_MouseEnter(object sender, MouseEventArgs e)
+        {
+            Border bord = (Border)sender;
+
+            ColorAnimation BgAnim = new ColorAnimation((Color)ColorConverter.ConvertFromString("#FF3B3B3B"), new Duration(TimeSpan.FromSeconds(0.2)));
+            ColorAnimation FgAnim = new ColorAnimation((Color)ColorConverter.ConvertFromString("#EEE"), new Duration(TimeSpan.FromSeconds(0.2)));
+
+            bord.Background.BeginAnimation(SolidColorBrush.ColorProperty, BgAnim);
+            foreach (TextBlock TxtBox in ((Grid)bord.Child).Children)
+            {
+                TxtBox.Foreground.BeginAnimation(SolidColorBrush.ColorProperty, FgAnim);
+            }
+        }
+        private void Border_MouseLeave(object sender, MouseEventArgs e)
+        {
+            Border bord = (Border)sender;
+
+            ColorAnimation BgAnim = new ColorAnimation((Color)ColorConverter.ConvertFromString("#FF2B2B2B"), new Duration(TimeSpan.FromSeconds(0.2)));
+            ColorAnimation FgAnim = new ColorAnimation((Color)ColorConverter.ConvertFromString("#999"), new Duration(TimeSpan.FromSeconds(0.2)));
+
+            bord.Background.BeginAnimation(SolidColorBrush.ColorProperty, BgAnim);
+            foreach (TextBlock TxtBox in ((Grid)bord.Child).Children)
+            {
+                TxtBox.Foreground.BeginAnimation(SolidColorBrush.ColorProperty, FgAnim);
+            }
+        }
+
+        private void AdvSettings_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Border SetContain = (Border)sender;
+
+            if (DropDown.Visibility == Visibility.Collapsed)
+            {
+                DropDown.Visibility = Visibility.Visible;
+                ((TextBlock)SetContain.Child).Text = "⇡ Advanced ⇡";
+            } else if (DropDown.Visibility == Visibility.Visible)
+            {
+                DropDown.Visibility = Visibility.Collapsed;
+                ((TextBlock)SetContain.Child).Text = "⇣ Advanced ⇣";
+            }
         }
     }
 }

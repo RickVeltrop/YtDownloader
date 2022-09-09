@@ -5,44 +5,63 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YtDownloader"
         mc:Ignorable="d"
-        Title="MainWindow" Height="400" Width="400" MinHeight="300" MinWidth="250" WindowStyle="None" ResizeMode="CanResizeWithGrip" AllowsTransparency="True" Background="{x:Null}">
+        Title="MainWindow" Height="400" Width="600" MinHeight="300" MinWidth="400" WindowStyle="None" ResizeMode="CanResize" AllowsTransparency="True" Background="{x:Null}">
+
+    <Window.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="true">
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
 
     <Border BorderThickness="1" BorderBrush="#FF343434" >
-        <Grid Background="#FF0C0C0C" >
+        <Grid Background="#FF0C0C0C">
             <Border Height="30" VerticalAlignment="Top">
-                <Grid MouseDown="Grid_MouseDown" Background="#FF2B2B2B" Cursor="Hand" Height="30" >
+                <Grid MouseDown="Grid_MouseDown" Background="#FF2B2B2B" Height="30" >
                     <TextBlock Text="{Binding Title, ElementName=WindowMain}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" FontWeight="Bold" Foreground="#FF999999"/>
-                    <Border x:Name="MinBut" Width="50" Margin="9,0,50,0" Background="#FF2B2B2B" HorizontalAlignment="Right" MouseDown="MinBut_Click" MouseEnter="MinBut_MouseEnter" MouseLeave="MinBut_MouseLeave">
+                    <Border Cursor="Hand" x:Name="MinBut" Width="50" Margin="9,0,50,0" Background="#FF2B2B2B" HorizontalAlignment="Right" MouseDown="MinBut_Click" MouseEnter="MinBut_MouseEnter" MouseLeave="MinBut_MouseLeave">
                         <TextBlock Text="─" TextAlignment="Center" FontSize="15" VerticalAlignment="Center" Foreground="#FF999999"/>
                     </Border>
-                    <Border x:Name="CloseBut" Width="50" Background="#FF2B2B2B" HorizontalAlignment="Right" MouseDown="CloseBut_Click" MouseEnter="CloseBut_MouseEnter" MouseLeave="CloseBut_MouseLeave">
+                    <Border Cursor="Hand" x:Name="CloseBut" Width="50" Background="#FF2B2B2B" HorizontalAlignment="Right" MouseDown="CloseBut_Click" MouseEnter="CloseBut_MouseEnter" MouseLeave="CloseBut_MouseLeave">
                         <TextBlock Text="✕" TextAlignment="Center" FontSize="15" VerticalAlignment="Center" Foreground="#FF999999"/>
                     </Border>
                 </Grid>
             </Border>
-            <Border Margin="25,50,25,0" BorderBrush="#FF333333" Height="25" VerticalAlignment="Top" BorderThickness="1" CornerRadius="5">
+            <Border x:Name="LinkInput" Margin="25,50,25,0" BorderBrush="#FF333333" Height="35" VerticalAlignment="Top" BorderThickness="1" CornerRadius="5">
                 <Grid VerticalAlignment="Center">
-                    <TextBlock TextWrapping="NoWrap" Text=" Link: " FontSize="14" FontWeight="Bold" MinWidth="35" HorizontalAlignment="Left" Width="35" VerticalAlignment="Center" Foreground="#FF999999"/>
-                    <TextBox GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" TextWrapping="NoWrap" Text="Enter link here..." FontSize="14" FontStyle="Italic" Margin="40,0,0,0" MinWidth="65" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Cursor="IBeam" InputScope="Url" Foreground="#FF999999"/>
+                    <TextBlock TextWrapping="NoWrap" Text=" Link: " FontSize="16" FontWeight="Bold" MinWidth="35" HorizontalAlignment="Left" Width="45" VerticalAlignment="Center" Foreground="#FF999999"/>
+                    <TextBox x:Name="LinkInputField" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" TextWrapping="NoWrap" Text="Enter link here..." FontSize="16" FontStyle="Italic" Margin="45,0,0,0" MinWidth="65" Background="{x:Null}" BorderBrush="{x:Null}" Cursor="IBeam" InputScope="Url" Foreground="#FF999999" IsTabStop="False" VerticalAlignment="Center"/>
                 </Grid>
             </Border>
-            <Border Margin="50,100,50,100">
-                <Expander x:Name="AdvancedSet" Header="Advanced" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF999999">
-                    <Border BorderThickness="2" BorderBrush="#FF646464" CornerRadius="10" Background="#FF1A1A1A">
-                        <Grid>
-                            <TextBlock VerticalAlignment="Top" Text="Advanced settings" TextAlignment="Center" Foreground="{Binding Foreground, ElementName=AdvancedSet}"/>
+            <Border Margin="100,100,100,120">
+                <Grid>
+                    <Border MouseEnter="MinBut_MouseEnter" MouseLeave="MinBut_MouseLeave" x:Name="AdvSettings" MouseDown="AdvSettings_MouseDown" Width="100" Height="25" Background="#FF2B2B2B" CornerRadius="5" BorderBrush="#FF585858" BorderThickness="1.5" VerticalAlignment="Top">
+                        <TextBlock Text="⇣ Advanced ⇣" Foreground="#999" TextAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <Border x:Name="DropDown"  Margin="10,30,10,10" Background="#FF2B2B2B" CornerRadius="10" BorderBrush="#FF585858" BorderThickness="2" Visibility="Visible">
+                        <Grid Margin="9,9,9,9">
+                            <TextBlock Foreground="#999" Text="SomeText"></TextBlock>
                         </Grid>
                     </Border>
-                </Expander>
+                </Grid>
             </Border>
-            <Border Margin="50,0,50,25" VerticalAlignment="Bottom" Height="35">
-                <Button Foreground="#FF999999" BorderBrush="#FF1A1A1A" Background="#FF2A2A2A" >
-                    <Grid Width="500" HorizontalAlignment="Center">
-                        <TextBlock Text="↓" Margin="200,0,0,0" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Left" Width="12"/>
-                        <TextBlock Text="Download" FontSize="14" VerticalAlignment="Center"  HorizontalAlignment="Center"/>
-                        <TextBlock Text="↓" Margin="290,0,0,0" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Left" Width="12"/>
-                    </Grid>
-                </Button>
+            <Border x:Name="DownloadBut"  Cursor="Hand" Margin="75,0,75,25" VerticalAlignment="Bottom" Height="40" CornerRadius="10" Background="#FF2B2B2B" BorderBrush="#FF585858" BorderThickness="1" MaxWidth="500" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave">
+                <Grid MouseUp="DownloadBut_MouseUp">
+                    <TextBlock Text="↓" FontSize="20" Foreground="#FF999999" HorizontalAlignment="Center" Margin="-100,0,0,0" VerticalAlignment="Center"/>
+                    <TextBlock Text="Download" FontSize="14" Foreground="#FF999999" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <TextBlock Text="↓" Margin="100,0,0,0" FontSize="20" Foreground="#FF999999" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
             </Border>
         </Grid>
     </Border>
