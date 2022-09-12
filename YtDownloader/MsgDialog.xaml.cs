@@ -15,14 +15,26 @@ using System.Windows.Shapes;
 
 namespace YtDownloader
 {
-    /// <summary>
-    /// Interaction logic for Window1.xaml
-    /// </summary>
     public partial class MsgDialog : Window
     {
-        public MsgDialog()
+        public MsgDialog(string Caption = "", string Text = "", string LButtonTxt = "", string RButtonTxt = "")
         {
             InitializeComponent();
+
+            WindowCaption.Text = Caption;
+            MsgTxt.Text = Text;
+            LButton.Text = LButtonTxt;
+            RButton.Text = RButtonTxt;
+        }
+
+        private void LBorder_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            this.DialogResult = false;
+        }
+
+        private void RBorder_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            this.DialogResult = true;
         }
 
         // Menu Buttons

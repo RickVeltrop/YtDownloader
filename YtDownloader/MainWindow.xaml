@@ -49,7 +49,7 @@
                     <Border MouseEnter="MinBut_MouseEnter" MouseLeave="MinBut_MouseLeave" x:Name="AdvSettings" MouseDown="AdvSettings_MouseDown" Width="100" Height="25" Background="#FF2B2B2B" CornerRadius="5" BorderBrush="#FF585858" BorderThickness="1.5" VerticalAlignment="Top">
                         <TextBlock Text="⇣ Advanced ⇣" Foreground="#999" TextAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
-                    <Border x:Name="DropDown"  Margin="10,30,10,10" Background="#FF2B2B2B" CornerRadius="10" BorderBrush="#FF585858" BorderThickness="2" Visibility="Visible">
+                    <Border x:Name="DropDown"  Margin="10,30,10,10" Background="#FF2B2B2B" CornerRadius="10" BorderBrush="#FF585858" BorderThickness="2" Visibility="Collapsed">
                         <Grid Margin="9,9,9,9">
                             <TextBlock Foreground="#999" Text="SomeText"></TextBlock>
                         </Grid>

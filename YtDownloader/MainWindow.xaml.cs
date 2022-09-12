@@ -18,6 +18,7 @@ using System.Windows.Shapes;
 using VideoLibrary;
 using System.Windows.Media.Animation;
 using Microsoft.Win32;
+using System.Diagnostics;
 
 namespace YtDownloader
 {
@@ -41,10 +42,16 @@ namespace YtDownloader
             YouTube yt = YouTube.Default;
             Video VidInfo = yt.GetVideo(InputLink);
 
-            bool? DownConf = new MsgDialog().ShowDialog();
+            string Caption = "Download Confirmation";
+            string Text = $"Are you sure you want to download video: \n`{VidInfo.FullName}`";
+            string LButtonTxt = "Cancel";
+            string RButtonTxt = "Confirm";
+
+            bool? DownConf = new MsgDialog(Caption, Text, LButtonTxt, RButtonTxt).ShowDialog();
             if (DownConf is false or null) { return; }
 
             File.WriteAllBytes(DefaultPath + VidInfo.FullName, VidInfo.GetBytes());
+            Process.Start("explorer.exe", DefaultPath);
         }
 
         // Link TextBox styles

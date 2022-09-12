@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YtDownloader"
         mc:Ignorable="d"
-        Title="MsgDialog" Height="400" Width="600" MinHeight="300" MinWidth="400" WindowStyle="None" ResizeMode="CanResizeWithGrip" AllowsTransparency="True" Background="{x:Null}">
+        Title="MsgDialog" Height="200" Width="300" WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True" Background="{x:Null}">
 
     <Window.Resources>
         <Style TargetType="TextBox">
@@ -29,12 +29,31 @@
         <Grid Background="#FF0C0C0C">
             <Border Height="30" VerticalAlignment="Top">
                 <Grid Background="#FF2B2B2B" Height="30" MouseDown="Grid_MouseDown">
-                    <TextBlock Text="{Binding Title, ElementName=DialogMsg}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" FontWeight="Bold" Foreground="#FF999999"/>
+                    <TextBlock x:Name="WindowCaption" Text="{Binding Title, ElementName=DialogMsg}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" FontWeight="Bold" Foreground="#FF999999"/>
                     <Border Cursor="Hand" x:Name="MinBut" Width="50" Margin="9,0,50,0" Background="#FF2B2B2B" HorizontalAlignment="Right" MouseDown="MinBut_Click" MouseEnter="MinBut_MouseEnter" MouseLeave="MinBut_MouseLeave">
                         <TextBlock Text="─" TextAlignment="Center" FontSize="15" VerticalAlignment="Center" Foreground="#FF999999"/>
                     </Border>
                     <Border Cursor="Hand" x:Name="CloseBut" Width="50" Background="#FF2B2B2B" HorizontalAlignment="Right" MouseDown="CloseBut_Click" MouseEnter="CloseBut_MouseEnter" MouseLeave="CloseBut_MouseLeave">
                         <TextBlock Text="✕" TextAlignment="Center" FontSize="15" VerticalAlignment="Center" Foreground="#FF999999"/>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <Border Margin="10,35,10,70">
+                <Grid>
+                    <TextBlock x:Name="MsgTxt" TextWrapping="Wrap" Foreground="#FF999999" VerticalAlignment="Center">
+                        <TextBlock.Text>TEXT</TextBlock.Text>
+                    </TextBlock>
+                </Grid>
+            </Border>
+
+            <Border VerticalAlignment="Bottom" Height="65" Margin="0,133,0,0">
+                <Grid MouseDown="Grid_MouseDown">
+                    <Border Cursor="Hand" Width="100" Background="#FF2B2B2B" Height="40" Margin="0,0,120,0" MouseDown="LBorder_MouseUp" MouseEnter="MinBut_MouseEnter" MouseLeave="MinBut_MouseLeave">
+                        <TextBlock x:Name="LButton" Text="Button1" TextAlignment="Center" FontSize="15" VerticalAlignment="Center" Foreground="#FF999999"/>
+                    </Border>
+                    <Border Cursor="Hand" Width="100" Background="#FF2B2B2B" Height="40" Margin="120,0,0,0" MouseDown="RBorder_MouseUp" MouseEnter="MinBut_MouseEnter" MouseLeave="MinBut_MouseLeave">
+                        <TextBlock x:Name="RButton" Text="Button2" TextAlignment="Center" FontSize="15" VerticalAlignment="Center" Foreground="#FF999999"/>
                     </Border>
                 </Grid>
             </Border>
