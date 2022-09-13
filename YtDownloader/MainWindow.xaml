@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YtDownloader"
         mc:Ignorable="d"
-        Title="MainWindow" Height="400" Width="600" MinHeight="300" MinWidth="400" WindowStyle="None" ResizeMode="CanResizeWithGrip" AllowsTransparency="True" Background="{x:Null}">
+        Title="MainWindow" Height="500" Width="800" MinHeight="300" MinWidth="400" WindowStyle="None" ResizeMode="CanResizeWithGrip" AllowsTransparency="True" Background="{x:Null}">
 
     <Window.Resources>
         <Style TargetType="TextBox">
@@ -44,8 +44,16 @@
                     <TextBox x:Name="LinkInputField" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" TextWrapping="NoWrap" Text="Enter link here..." FontSize="16" FontStyle="Italic" Margin="45,0,0,0" MinWidth="65" Background="{x:Null}" BorderBrush="{x:Null}" Cursor="IBeam" InputScope="Default" Foreground="#FF999999" IsTabStop="False" VerticalAlignment="Center"/>
                 </Grid>
             </Border>
-            <Border Margin="100,100,100,120">
+            <Border Margin="100,100,100,90" CornerRadius="10" BorderBrush="#FF585858" BorderThickness="2" Padding="5">
                 <Grid>
+                    <TextBlock Text="⛯ Settings" Foreground="#999" TextAlignment="Center" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="16"/>
+                    <Border Margin="10,40,10,0" Height="30" VerticalAlignment="Top" CornerRadius="10" BorderBrush="#FF585858" BorderThickness="2">
+                        <Grid>
+                            <TextBlock Text="Download location:" Foreground="#FF999999" FontSize="16" TextAlignment="Left" Margin="5,0,0,0" HorizontalAlignment="Left" Width="135" VerticalAlignment="Center"/>
+                            <TextBox x:Name="SetFileInput" Background="{x:Null}" BorderBrush="{x:Null}" Margin="145,0,40,0" VerticalAlignment="Center" Foreground="#FF999999" FontSize="16" Text="    " FontStyle="Italic"/>
+                            <TextBlock MouseDown="SetFileButton_MouseDown" x:Name="SetFileButton" Text="☱" Foreground="#FF999999" FontSize="20" TextAlignment="Center" Margin="420,0,0,0" HorizontalAlignment="Right" Width="40" VerticalAlignment="Center" Height="26" FontWeight="Bold"/>
+                        </Grid>
+                    </Border>
                     <Border MouseEnter="MinBut_MouseEnter" MouseLeave="MinBut_MouseLeave" x:Name="AdvSettings" MouseDown="AdvSettings_MouseDown" Width="100" Height="25" Background="#FF2B2B2B" CornerRadius="5" BorderBrush="#FF585858" BorderThickness="1.5" VerticalAlignment="Top">
                         <TextBlock Text="⇣ Advanced ⇣" Foreground="#999" TextAlignment="Center" VerticalAlignment="Center"/>
                     </Border>

@@ -25,6 +25,9 @@ namespace YtDownloader
             MsgTxt.Text = Text;
             LButton.Text = LButtonTxt;
             RButton.Text = RButtonTxt;
+
+            if (LButtonTxt == "") { ((Border)LButton.Parent).Visibility = Visibility.Collapsed; }
+            if (RButtonTxt == "") { ((Border)RButton.Parent).Visibility = Visibility.Collapsed; }
         }
 
         private void LBorder_MouseUp(object sender, MouseButtonEventArgs e)

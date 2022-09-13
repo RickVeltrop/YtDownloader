@@ -19,6 +19,7 @@ using VideoLibrary;
 using System.Windows.Media.Animation;
 using Microsoft.Win32;
 using System.Diagnostics;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace YtDownloader
 {
@@ -26,8 +27,8 @@ namespace YtDownloader
     {
         // https://www.youtube.com/watch?v=dQw4w9WgXcQ
 
-        string PlaceholderText = "Enter link here...";
-        string DefaultPath = @"D:\TEST\";
+        string VideoInputPlaceholder = "Enter link here...";
+        string CurrDownloadPath = @"";
 
         public MainWindow()
         {
@@ -37,7 +38,24 @@ namespace YtDownloader
         private void DownloadBut_MouseUp(object sender, MouseButtonEventArgs e)
         {
             string InputLink = LinkInputField.Text;
-            if (!InputLink.Contains("youtube.com")) { return; }
+            if (!InputLink.Contains("youtube.com"))
+            {
+                MsgDialog ErrBox = new MsgDialog("Error!", "Invalid link!", "", "Okay");
+                ErrBox.Top = WindowMain.Top + (WindowMain.Height / 4);
+                ErrBox.Left = WindowMain.Left + (WindowMain.Width / 4);
+                ErrBox.ShowDialog();
+                return;
+            }
+
+            // If the selected download path does not exist
+            if (!Directory.Exists(CurrDownloadPath))
+            {
+                MsgDialog ErrBox = new MsgDialog("Error!", "Selected file does not exist!", "", "Okay");
+                ErrBox.Top = WindowMain.Top + (WindowMain.Height / 4);
+                ErrBox.Left = WindowMain.Left + (WindowMain.Width / 4);
+                ErrBox.ShowDialog();
+                return;
+            }
 
             YouTube yt = YouTube.Default;
             Video VidInfo = yt.GetVideo(InputLink);
@@ -47,18 +65,22 @@ namespace YtDownloader
             string LButtonTxt = "Cancel";
             string RButtonTxt = "Confirm";
 
-            bool? DownConf = new MsgDialog(Caption, Text, LButtonTxt, RButtonTxt).ShowDialog();
+            MsgDialog DownConfDialog = new MsgDialog(Caption, Text, LButtonTxt, RButtonTxt);
+            DownConfDialog.Top = WindowMain.Top + (WindowMain.Height/4);
+            DownConfDialog.Left = WindowMain.Left + (WindowMain.Width / 4);
+
+            bool? DownConf = DownConfDialog.ShowDialog();
             if (DownConf is false or null) { return; }
 
-            File.WriteAllBytes(DefaultPath + VidInfo.FullName, VidInfo.GetBytes());
-            Process.Start("explorer.exe", DefaultPath);
+            File.WriteAllBytes(CurrDownloadPath + VidInfo.FullName, VidInfo.GetBytes());
+            Process.Start("explorer.exe", CurrDownloadPath);
         }
 
         // Link TextBox styles
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             TextBox TxtBx = (TextBox)sender;
-            if (TxtBx.Text == PlaceholderText)
+            if (TxtBx.Text == VideoInputPlaceholder)
             {
                 TxtBx.Text = "";
             }
@@ -71,7 +93,7 @@ namespace YtDownloader
             TextBox TxtBx = (TextBox)sender;
             if (string.IsNullOrWhiteSpace(TxtBx.Text))
             {
-                TxtBx.Text = PlaceholderText;
+                TxtBx.Text = VideoInputPlaceholder;
             }
 
             ColorAnimation BrdAnim = new ColorAnimation((Color)ColorConverter.ConvertFromString("#FF333333"), new Duration(TimeSpan.FromSeconds(0.2)));
@@ -186,6 +208,21 @@ namespace YtDownloader
             {
                 DropDown.Visibility = Visibility.Collapsed;
                 ((TextBlock)SetContain.Child).Text = "⇣ Advanced ⇣";
+            }
+        }
+
+        private void SetFileButton_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            CommonOpenFileDialog SaveFilePicker = new CommonOpenFileDialog() {
+                IsFolderPicker=true,
+                EnsurePathExists=true,
+            };
+            CommonFileDialogResult ChoseFolder = SaveFilePicker.ShowDialog();
+
+            if (ChoseFolder == CommonFileDialogResult.Ok)
+            {
+                CurrDownloadPath = SaveFilePicker.FileName;
+                SetFileInput.Text = CurrDownloadPath;
             }
         }
     }
