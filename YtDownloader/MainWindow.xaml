@@ -51,7 +51,7 @@
                         <Grid>
                             <TextBlock Text="Download location:" Foreground="#FF999999" FontSize="16" TextAlignment="Left" Margin="5,0,0,0" HorizontalAlignment="Left" Width="135" VerticalAlignment="Center"/>
                             <TextBox x:Name="SetFileInput" Background="{x:Null}" BorderBrush="{x:Null}" Margin="145,0,40,0" VerticalAlignment="Center" Foreground="#FF999999" FontSize="16" Text="    " FontStyle="Italic"/>
-                            <TextBlock MouseDown="SetFileButton_MouseDown" x:Name="SetFileButton" Text="☱" Foreground="#FF999999" FontSize="20" TextAlignment="Center" Margin="420,0,0,0" HorizontalAlignment="Right" Width="40" VerticalAlignment="Center" Height="26" FontWeight="Bold"/>
+                            <TextBlock MouseDown="SetFileButton_MouseDown" x:Name="SetFileButton" Text="☱" Foreground="#FF999999" FontSize="20" TextAlignment="Center" Margin="0,0,0,6" Width="40" FontWeight="Bold" HorizontalAlignment="Right"/>
                         </Grid>
                     </Border>
                     <Border MouseEnter="MinBut_MouseEnter" MouseLeave="MinBut_MouseLeave" x:Name="AdvSettings" MouseDown="AdvSettings_MouseDown" Width="100" Height="25" Background="#FF2B2B2B" CornerRadius="5" BorderBrush="#FF585858" BorderThickness="1.5" VerticalAlignment="Top">

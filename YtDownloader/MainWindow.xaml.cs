@@ -66,13 +66,14 @@ namespace YtDownloader
             string RButtonTxt = "Confirm";
 
             MsgDialog DownConfDialog = new MsgDialog(Caption, Text, LButtonTxt, RButtonTxt);
-            DownConfDialog.Top = WindowMain.Top + (WindowMain.Height/4);
+            DownConfDialog.Top = WindowMain.Top + (WindowMain.Height / 4);
             DownConfDialog.Left = WindowMain.Left + (WindowMain.Width / 4);
 
             bool? DownConf = DownConfDialog.ShowDialog();
             if (DownConf is false or null) { return; }
 
-            File.WriteAllBytes(CurrDownloadPath + VidInfo.FullName, VidInfo.GetBytes());
+            Console.WriteLine(CurrDownloadPath + VidInfo.FullName);
+            File.WriteAllBytes(CurrDownloadPath + @"\" + VidInfo.FullName, VidInfo.GetBytes());
             Process.Start("explorer.exe", CurrDownloadPath);
         }
 
@@ -213,9 +214,10 @@ namespace YtDownloader
 
         private void SetFileButton_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            CommonOpenFileDialog SaveFilePicker = new CommonOpenFileDialog() {
-                IsFolderPicker=true,
-                EnsurePathExists=true,
+            CommonOpenFileDialog SaveFilePicker = new CommonOpenFileDialog()
+            {
+                IsFolderPicker = true,
+                EnsurePathExists = true,
             };
             CommonFileDialogResult ChoseFolder = SaveFilePicker.ShowDialog();
 
